@@ -25,6 +25,7 @@ def load_ini():
     else:
         return None
 
+
 def get_input_devices():
     """ Use pyaudio to detect available mic-devices.
 
