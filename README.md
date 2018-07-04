@@ -12,19 +12,19 @@ pip install pyaudio
 
 
 ### Installing Required Packages (Mac OSX)
-There are a few things to consider when installing this project for OS X. 
+There are a few things to consider when installing this project for OS X.
 
-First, the `portaudio` library must be installed before running `pip install pyaudio`. 
+First, the `portaudio` library must be installed before running `pip install pyaudio`.
 
-This can be done with [Homebrew](https://brew.sh/) using 
- - `brew install portaudio` 
+This can be done with [Homebrew](https://brew.sh/) using
+ - `brew install portaudio`
 
-or MacPorts using 
-  - `sudo port install portaudio` 
-  
+or MacPorts using
+  - `sudo port install portaudio`
+
 it may also be available through conda, although this is not verified (there seems to be issues with this method..)
   - `conda install -c anaconda portaudio=19`
-  
+
 Having installed `portaudio`, proceed as follows:
 ```shell
 pip install pyaudio
@@ -48,7 +48,14 @@ Navigate to Microphone/microphone and run:
 ```shell
 python configure_input.py
 ```
-and follow the selection prompt. This will save your microphone preference for furture use.
+and follow the selection prompt. This will save your microphone preference for future use.
+
+# Testing Your Microphone
+Navigate to Microphone and run:
+```shell
+python test_input.py
+```
+This should record and play back a brief audio clip using the microphone selected during configuration.
 
 # Recording Audio
 ```python
