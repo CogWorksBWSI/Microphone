@@ -36,8 +36,8 @@ sudo apt-get install python-pyaudio python3-pyaudio
 ```
 
 
-## Installing this package
-Clone this repository, navigate to it, and run
+# Installing this package
+Once you have installed the dependencies, clone this repository, navigate to it, and run
 
 ```shell
 python setup.py develop
