@@ -4,11 +4,9 @@
 import pyaudio
 import configparser
 import os
-from pathlib import Path
-
 from typing import Union, List, Optional
 
-_path = Path(os.path.dirname(os.path.abspath( __file__ )))
+from microphone.config import path
 
 
 def load_ini() -> Union[dict, None]:
@@ -22,7 +20,7 @@ def load_ini() -> Union[dict, None]:
     config = configparser.ConfigParser()
 
     # This returns an empty array if no config file was found
-    if config.read(str(_path / 'config.ini')) != []:
+    if config.read(str(path / 'config.ini')):
         return config['input device']
     return None
 
@@ -97,7 +95,7 @@ def save_ini(selected_device: dict):
         'name': selected_device['name'],
         'index': selected_device['index']
     }
-    with open(os.path.join(_path, 'config.ini'), 'w') as configfile:
+    with open(os.path.join(path, 'config.ini'), 'w') as configfile:
         config.write(configfile)
 
 

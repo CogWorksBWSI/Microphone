@@ -3,29 +3,16 @@
 Running the script `configure_input.py` will prompt a user to choose their microphone.
 This will save a file to songfp/mic_config/config.ini
 
-`configure_input.load_ini()` will return the name of the saved device from the config.ini file"""
+`configure_input.load_ini()` will return the name of the saved device from the config.ini file
+
+Provides basic functionality for recording audio from a saved device, and
+playing the audio back."""
 
 from typing import Optional, Dict, Tuple, List
 
-from .context_managers import open_input_device as _open_input_device
-from .context_managers import open_output_device as _open_output_device
-
-""" Provides basic functionality for recording audio from a saved device, and
-playing the audio back."""
 
 __all__ = ["record_audio",
            "play_audio"]
-
-# buffer size
-_CHUNK = 1024
-
-# 16-bit audio
-_WIDTH = 2
-
-# mono
-_CHANNELS = 1
-
-_RATE = 44100
 
 
 def record_audio(time: float, device: Optional[Dict[str, str]] = None) -> Tuple[List[bytes], int]:
@@ -44,9 +31,12 @@ def record_audio(time: float, device: Optional[Dict[str, str]] = None) -> Tuple[
     -------
     Tuple[List[bytes], int]
         The bytes from the recorded signal, and the sample rate."""
-    with _open_input_device(device) as mic:
-        frames = [mic.read(_CHUNK) for _ in range(0, int(_RATE / _CHUNK * time))]
-    return frames, _RATE
+    from microphone.config import settings
+    from microphone.context_managers import open_input_device
+
+    with open_input_device(device) as mic:
+        frames = [mic.read(settings.chunk) for _ in range(0, int(settings.rate / settings.chunk * time))]
+    return frames, settings.rate
 
 
 def play_audio(frames: List[bytes], time: float):
@@ -59,6 +49,9 @@ def play_audio(frames: List[bytes], time: float):
 
     time : float
         The amount of time to play back (in seconds)"""
-    with _open_output_device() as stream:
-        for i in range(0, int(_RATE / _CHUNK * time)):
-            stream.write(frames[i], _CHUNK)
+    from microphone.config import settings
+    from microphone.context_managers import open_output_device
+
+    with open_output_device() as stream:
+        for i in range(0, int(settings.rate / settings.chunk * time)):
+            stream.write(frames[i], settings.chunk)
