@@ -1,12 +1,13 @@
 import pyaudio
 from contextlib import contextmanager
+from typing import Optional
 
 from microphone.configure_input import load_ini
 from microphone.config import settings
 
 
 @contextmanager
-def open_input_device(saved_device=None):
+def open_input_device(saved_device: Optional[dict] = None) -> pyaudio.Stream:
     """ Open an input audio stream from the saved mic as a context.
     Leaving the context will close the input stream and the device.
 
@@ -53,7 +54,7 @@ def open_input_device(saved_device=None):
 
 
 @contextmanager
-def open_output_device():
+def open_output_device() -> pyaudio.Stream:
     """ Open an output audio stream as a context.
     Leaving the context will close the output stream and the device.
 
