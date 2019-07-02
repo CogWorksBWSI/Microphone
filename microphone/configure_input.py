@@ -37,7 +37,7 @@ def get_input_devices() -> List[dict]:
     return [device for device in devices if device['maxInputChannels'] > 0]
 
 
-def present_menu(devices: List[dict], daved_device: Optional[dict] = None) -> dict:
+def present_menu(devices: List[dict], saved_device: Optional[dict] = None) -> dict:
     """ Format the menu of selectable microphones and receive selection from user.
 
     Parameters
