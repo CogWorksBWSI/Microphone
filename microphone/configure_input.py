@@ -57,7 +57,7 @@ def present_menu(devices: List[dict], daved_device: Optional[dict] = None) -> di
     menuIndex = 0
     for device in devices:
         # If the user previously saved a device, indicate that in the menu with an asterisk
-        isSavedSelection = int(daved_device['index']) == device['index'] \
+        isSavedSelection = int(saved_device['index']) == device['index'] \
             if daved_device is not None \
             else False
         savedSelectionText = '*' if isSavedSelection else ' '
