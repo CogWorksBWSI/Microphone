@@ -45,7 +45,7 @@ def present_menu(devices: List[dict], daved_device: Optional[dict] = None) -> di
     devices : List[dict]
         Device logs for detected microphones
 
-    daved_device : Optional[dict]
+    saved_device : Optional[dict]
          The device log for the saved device - used to indicate on
          the menu the current saved device.
 
