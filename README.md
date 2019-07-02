@@ -2,39 +2,12 @@
 
 Provides a simple interface for configuring and utilizing a microphone in Python.
 
-# Installation Requirements
-Anaconda with Python 3.{5, 6}, portaudio (Mac & Ubuntu only) & pyaudio. See following sections for installation instructions.
+This package has been tested using Python 3.7, using conda 4.7.5, on both Mac and Windows 10.
 
-### Installing Required Packages (Windows)
+# Installing pyaudio (required dependency)
 ```shell
-pip install pyaudio
+conda install pyaudio
 ```
-
-
-### Installing Required Packages (Mac OSX)
-There are a few things to consider when installing this project for OS X.
-
-First, the `portaudio` library must be installed before running `pip install pyaudio`.
-
-This can be done with [Homebrew](https://brew.sh/) using
- - `brew install portaudio`
-
-or MacPorts using
-  - `sudo port install portaudio`
-
-it may also be available through conda, although this is not verified (there seems to be issues with this method..)
-  - `conda install -c anaconda portaudio=19`
-
-Having installed `portaudio`, proceed as follows:
-```shell
-pip install pyaudio
-```
-
-### Installing Required Packages (Debian/Ubuntu)
-```shell
-sudo apt-get install python-pyaudio python3-pyaudio
-```
-
 
 # Installing this package
 Once you have installed the dependencies, clone this repository, navigate to it, and run
@@ -42,6 +15,8 @@ Once you have installed the dependencies, clone this repository, navigate to it,
 ```shell
 python setup.py develop
 ```
+It is important that you use the `develop` install option, as the microphone configuration requires that
+this package is installed in-place.
 
 # Configuring Your Microphone
 Navigate to Microphone/microphone and run:

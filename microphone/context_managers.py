@@ -1,77 +1,47 @@
 import pyaudio
 from contextlib import contextmanager
-import configparser
-import os
-from pathlib import Path
+from typing import Optional
 
-
-_path = Path(os.path.dirname(os.path.abspath( __file__ )))
-# buffer size
-CHUNK = 1024
-
-# 16-bit audio
-WIDTH = 2
-
-# mono
-CHANNELS = 1
-
-RATE = 44100
-
-
-def load_ini():
-    """ Returns the saved device from config.ini or `None`
-
-            Returns
-            -------
-            Union[dict, None]
-                {name : device name,
-                 index: device index from config prompt}"""
-    config = configparser.ConfigParser()
-
-    # This returns an empty array if no config file was found
-    if config.read(str(_path / 'config.ini')) != []:
-        return config['input device']
-    else:
-        return None
+from microphone.configure_input import load_ini
+from microphone.config import settings
 
 
 @contextmanager
-def open_input_device(savedDevice=None):
+def open_input_device(saved_device: Optional[dict] = None) -> pyaudio.Stream:
     """ Open an input audio stream from the saved mic as a context.
-        Leaving the context will close the input stream and the device.
+    Leaving the context will close the input stream and the device.
 
-        Parameters
-        ----------
-        savedDevice : Optional[dict]
-            The log for the saved recording device.
+    Parameters
+    ----------
+    saved_device : Optional[dict]
+        The log for the saved recording device.
 
-        Yields
-        ------
-        pyaudio.Stream
-            Input stream of bytes.
-        """
+    Yields
+    ------
+    pyaudio.Stream
+        Input stream of bytes."""
     p = pyaudio.PyAudio()
 
     # try loading from config file
-    if savedDevice is None:
-        savedDevice = load_ini()
+    if saved_device is None:
+        saved_device = load_ini()
 
     # use portaudio to detect default device
-    if savedDevice is None:
+    if saved_device is None:
         print("No microphone configuration file found, attempting to find default device..")
         defaultInfo = p.get_default_input_device_info()
         deviceIndex = defaultInfo['index']
         devicename = defaultInfo['name']
     else:
-        deviceIndex = int(savedDevice['index'])
-        devicename = savedDevice['name']
+        deviceIndex = int(saved_device['index'])
+        devicename = saved_device['name']
 
-    stream = p.open(format=p.get_format_from_width(WIDTH),
-                    channels=CHANNELS,
-                    rate=RATE,
+    stream = p.open(format=p.get_format_from_width(settings.width),
+                    channels=settings.channels,
+                    rate=settings.rate,
                     input=True,
                     input_device_index=deviceIndex,
-                    frames_per_buffer=CHUNK)
+                    frames_per_buffer=settings.chunk)
 
     print("Using input device '{}'".format(devicename))
     try:
@@ -84,25 +54,23 @@ def open_input_device(savedDevice=None):
 
 
 @contextmanager
-def open_output_device():
+def open_output_device() -> pyaudio.Stream:
     """ Open an output audio stream as a context.
-        Leaving the context will close the output stream and the device.
+    Leaving the context will close the output stream and the device.
 
-        Yields
-        ------
-        pyaudio.Stream
-            Output stream to write to.
-        """
+    Yields
+    ------
+    pyaudio.Stream
+        Output stream to write to."""
     p = pyaudio.PyAudio()
-    outputStream = p.open(format=p.get_format_from_width(WIDTH),
-                          channels=CHANNELS,
-                          rate=RATE,
-                          output=True,
-                          frames_per_buffer=CHUNK)
-
+    output_stream = p.open(format=p.get_format_from_width(settings.width),
+                           channels=settings.channels,
+                           rate=settings.rate,
+                           output=True,
+                           frames_per_buffer=settings.chunk)
     try:
-        yield outputStream
+        yield output_stream
     finally:
-        outputStream.stop_stream()
-        outputStream.close()
+        output_stream.stop_stream()
+        output_stream.close()
         p.terminate()

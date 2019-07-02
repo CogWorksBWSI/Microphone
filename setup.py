@@ -7,9 +7,9 @@ except ImportError:
       print("Warning: `pyaudio` must be installed in order to use `microphone`")
 
 setup(name='microphone',
-      version='1.0',
+      version='1.1',
       description='Provides simple interface for recording audio',
-      author='Ryan Soklaski (@LLrsokl)',
+      author='Ryan Soklaski (@rsokl)',
       author_email="ry26099@mit.edu",
       packages=find_packages(),
       license="MIT"
