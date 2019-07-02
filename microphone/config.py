@@ -2,7 +2,7 @@ from argparse import Namespace
 from pathlib import Path
 import os
 
-path = Path(os.path.dirname(os.path.abspath( __file__ )))
+path = Path(__file__).resolve().parent
 
 settings = Namespace()
 
