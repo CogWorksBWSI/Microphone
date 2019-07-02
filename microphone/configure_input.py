@@ -3,7 +3,6 @@
 
 import pyaudio
 import configparser
-import os
 from typing import Union, List, Optional
 
 from microphone.config import path
