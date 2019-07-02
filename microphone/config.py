@@ -1,6 +1,5 @@
 from argparse import Namespace
 from pathlib import Path
-import os
 
 path = Path(__file__).resolve().parent
 
