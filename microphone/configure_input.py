@@ -95,7 +95,7 @@ def save_ini(selected_device: dict):
         'name': selected_device['name'],
         'index': selected_device['index']
     }
-    with open(os.path.join(path, 'config.ini'), 'w') as configfile:
+    with open(path / 'config.ini', 'w') as configfile:
         config.write(configfile)
 
 
