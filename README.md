@@ -13,9 +13,9 @@ conda install pyaudio
 Once you have installed the dependencies, clone this repository, navigate to it, and run
 
 ```shell
-python setup.py develop
+pip install -e .
 ```
-It is important that you use the `develop` install option, as the microphone configuration requires that
+It is important that you use this `develop` install option, as the microphone configuration requires that
 this package is installed in-place.
 
 # Configuring Your Microphone
