@@ -23,7 +23,7 @@ Navigate to Microphone/microphone and run:
 ```shell
 python configure_input.py
 ```
-and follow the selection prompt. This will save your microphone preference for future use.
+and follow the selection prompt. This will save your microphone preference for future use. The resulting configuration file will be saved to `Microphone/microphone/config.ini`. You can edit [this file](https://github.com/CogWorksBWSI/Microphone/blob/master/microphone/config.py) to change the recording settings (e.g. the sampling rate) used to sampled audio from your microphone.
 
 # Testing Your Microphone
 Navigate to Microphone and run:
