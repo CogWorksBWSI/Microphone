@@ -19,11 +19,22 @@ It is important that you use this `develop` install option, as the microphone co
 this package is installed in-place.
 
 # Configuring Your Microphone
+
+Now we will configure `microphone` to use the appropriate microphone on your computer.
 Navigate to Microphone/microphone and run:
 ```shell
 python configure_input.py
 ```
-and follow the selection prompt. This will save your microphone preference for future use. The resulting configuration file will be saved to `Microphone/microphone/config.ini`. You can edit [this file](https://github.com/CogWorksBWSI/Microphone/blob/master/microphone/config.py) to change the recording settings (e.g. the sampling rate) used to sampled audio from your microphone.
+and follow the selection prompt. This will save your microphone preference for future use. The resulting configuration file will be saved to `Microphone/microphone/config.ini`.
+The contents of the file will look something like this
+
+```
+[input device]
+name = Desktop Microphone (RØDE NT-USB)
+index = 1
+```
+
+You can edit [this file](https://github.com/CogWorksBWSI/Microphone/blob/master/microphone/config.py) to change the recording settings (e.g. the sampling rate) used to sampled audio from your microphone.
 
 # Testing Your Microphone
 Navigate to Microphone and run:
